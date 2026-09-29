@@ -1,0 +1,12 @@
+<div class="zippy" [class.zippy--closed]="!otvoren()">
+  <button type="button" class="zippy__header" (click)="toggle()">
+    <span class="zippy__chevron" [class.zippy__chevron--open]="otvoren()">&#9656;</span>
+    <span class="zippy__title">{{ naslov() }}</span>
+  </button>
+
+  @if (otvoren()) {
+    <div class="zippy__body">
+      <ng-content />
+    </div>
+  }
+</div>

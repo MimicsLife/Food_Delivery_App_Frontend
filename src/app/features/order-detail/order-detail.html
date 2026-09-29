@@ -1,0 +1,114 @@
+<section class="order-detail">
+  <a routerLink="/porudzbine" class="order-detail__back">&larr; Sve porudžbine</a>
+
+  @if (vm$ | async; as vm) {
+    @if (vm.ucitava) {
+      <app-loading tekst="Ucitavanje porudzbine..." />
+    } @else if (vm.greska) {
+      <p class="notice notice--error">{{ vm.greska }}</p>
+    } @else {
+      <!-- azurirana() ima prednost kad je promena statusa vec vracena sa servera -->
+      @if ((azurirana() ?? vm.porudzbina); as porudzbina) {
+        <app-card
+          [naslov]="restoranNaziv(porudzbina.restoranId)"
+          [podnaslov]="'Porudžbina #' + porudzbina.id"
+        >
+          <dl class="detail-list">
+            <div>
+              <dt>Status</dt>
+              <dd>
+                <!-- @switch prikazuje tacno jednu granu za trenutni status -->
+                @switch (porudzbina.status) {
+                  @case ('KREIRANA') {
+                    <span class="badge status--kreirana">Kreirana</span>
+                  }
+                  @case ('UPRIPREMI') {
+                    <span class="badge status--upripremi">U pripremi</span>
+                  }
+                  @case ('U_DOSTAVI') {
+                    <span class="badge status--u_dostavi">U dostavi</span>
+                  }
+                  @case ('DOSTAVLJENA') {
+                    <span class="badge status--dostavljena">Dostavljena</span>
+                  }
+                  @case ('OTKAZANA') {
+                    <span class="badge status--otkazana">Otkazana</span>
+                  }
+                  @default {
+                    <span class="badge">Nepoznato</span>
+                  }
+                }
+              </dd>
+            </div>
+            <div>
+              <dt>Datum</dt>
+              <dd>{{ porudzbina.datum | date: 'dd.MM.yyyy HH:mm:ss' }}</dd>
+            </div>
+            <div>
+              <dt>Ukupno</dt>
+              <dd>
+                <strong>
+                  {{ porudzbina.ukupnaCena | currency: 'RSD' : 'symbol' : '1.0-0' }}
+                </strong>
+              </dd>
+            </div>
+          </dl>
+
+          <h2>Stavke</h2>
+          <ul class="items">
+            @for (stavka of porudzbina.stavke; track stavka.id; let i = $index) {
+              <li class="items__row">
+                <span class="items__index">{{ i + 1 }}.</span>
+                <span class="items__id">{{ jeloNaziv(stavka.jeloId) }}</span>
+                <span class="items__qty">× {{ stavka.kolicina }}</span>
+                <span class="items__price">
+                  {{ stavka.cenaPoJedinici | currency: 'RSD' : 'symbol' : '1.0-0' }}
+                </span>
+              </li>
+            } @empty {
+              <li class="notice">Porudžbina nema stavki.</li>
+            }
+          </ul>
+
+          <h2>Akcije</h2>
+          <div class="actions">
+            @if (sledeciStatus(porudzbina.status); as sledeci) {
+              <button
+                type="button"
+                class="btn btn--primary"
+                [disabled]="izmena()"
+                (click)="setStatus(porudzbina.id!, sledeci)"
+              >
+                Promeni status u {{ sledeci | statusLabel }}
+              </button>
+            } @else {
+              <p class="notice">Porudžbina je u završnom stanju.</p>
+            }
+
+            <button
+              type="button"
+              class="btn btn--ghost"
+              [disabled]="izmena()"
+              (click)="dodeliDostavljaca(porudzbina.id!, 2)"
+            >
+              Dodeli dostavljača
+            </button>
+          </div>
+
+          @if (dostava(); as d) {
+            <div class="notice notice--ok">
+              Dostavljac je na putu - očekujte porudžbinu oko
+              {{ d.procenjenoVreme | date: 'HH:mm' }}.
+            </div>
+          }
+          @if (poruka(); as tekst) {
+            <p class="notice notice--ok">{{ tekst }}</p>
+          }
+          @if (greska(); as tekst) {
+            <p class="notice notice--error">{{ tekst }}</p>
+          }
+        </app-card>
+      }
+    }
+  }
+</section>

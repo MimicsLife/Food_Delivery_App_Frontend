@@ -1,0 +1,77 @@
+<section class="restaurants">
+  <header class="restaurants__header">
+    <h1>Restorani</h1>
+    <label class="field">
+      <span class="field__label">Pretraga</span>
+      <!-- keyup se salje u Subject; debounceTime u servisu odlaga posaljivanje -->
+      <input
+        #polje
+        type="search"
+        class="field__control"
+        placeholder="Naziv ili adresa..."
+        (keyup)="onSearch(polje.value)"
+      />
+    </label>
+  </header>
+
+  @if (restorani$ | async; as restorani) {
+    @if (restorani.length === 0) {
+      <p class="notice">Nema restorana za prikaz.</p>
+    } @else {
+      <ul class="restaurants__grid">
+        @for (restoran of restorani; track restoran.id) {
+          <li>
+            <a class="restoran__link" [routerLink]="['/restorani', restoran.id]">
+              <app-card
+                [naslov]="restoran.naziv"
+                [podnaslov]="restoran.adresa ?? ''"
+                [selektovan]="restoran.otvoren === true"
+              >
+              <div class="restoran__meta">
+                <app-rating [ocena]="ocena(restoran.id)" />
+
+                <!-- @switch prikazuje tačno jednu granu prema vrednosti -->
+                @switch (restoran.otvoren) {
+                  @case (true) {
+                    <span class="badge badge--ok">Otvoren</span>
+                  }
+                  @case (false) {
+                    <span class="badge badge--muted">Zatvoren</span>
+                  }
+                  @default {
+                    <span class="badge badge--muted">Nepoznato</span>
+                  }
+                }
+              </div>
+
+              @if (restoran.telefon) {
+                <p class="restoran__phone">{{ restoran.telefon | uppercase }}</p>
+              }
+
+              <!-- NgStyle dodaje inline stil iz objekta: visina trake = ocena/5 -->
+              <div
+                class="restoran__bar"
+                [ngStyle]="{ height: (ocena(restoran.id) / 5) * 100 + '%' }"
+                aria-hidden="true"
+              ></div>
+
+              <!-- NgClass dodaje vise CSS klasa uslovno, iz objekta -->
+              <div
+                class="restoran__state"
+                [ngClass]="{
+                  'restoran__state--open': restoran.otvoren,
+                  'restoran__state--closed': !restoran.otvoren,
+                }"
+              >
+                {{ restoran.otvoren ? 'Primamo porudzbine' : 'Trenutno ne radimo' }}
+              </div>
+
+                <span cardFooter class="restoran__cta">Prikaži meni →</span>
+              </app-card>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

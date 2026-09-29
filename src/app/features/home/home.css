@@ -1,0 +1,61 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.home__hero {
+  background: linear-gradient(135deg, #fff7ed, #fef3c7);
+  border: 1px solid #fed7aa;
+  border-radius: 0.9rem;
+  padding: 1.75rem 1.5rem;
+}
+
+.home__hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  color: #7c2d12;
+}
+
+.home__hero p {
+  margin: 0 0 1rem;
+  color: #7c2d12;
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+.home__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.home__cart {
+  margin: 0.9rem 0 0 !important;
+  font-size: 0.85rem;
+  color: #9a3412;
+}
+
+.home__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.home__grid p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.home ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}

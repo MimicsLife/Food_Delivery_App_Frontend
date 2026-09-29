@@ -1,0 +1,63 @@
+<section class="users">
+  <h1>Korisnici</h1>
+
+  <label class="field">
+    <span class="field__label">Pretraga</span>
+    <input
+      #polje
+      type="search"
+      class="field__control"
+      placeholder="Ime, prezime ili email..."
+      [value]="pretraga()"
+      (input)="pretraga.set(polje.value)"
+    />
+  </label>
+
+  @if (korisnici$ | async; as lista) {
+    @if (lista.length === 0) {
+      <p class="notice">Nema korisnika za prikaz.</p>
+    } @else {
+      <p class="users__count">Prikazano: {{ filtriraj(lista).length }} od {{ lista.length }}</p>
+
+      <ul class="users__list">
+        @for (korisnik of filtriraj(lista); track korisnik.id; let i = $index) {
+          <li>
+            <app-card
+              [naslov]="korisnik.ime + ' ' + korisnik.prezime"
+              [podnaslov]="korisnik.email"
+              [selektovan]="jeIzabran(korisnik)"
+            >
+              <div class="user__row">
+                <span class="avatar">{{ (korisnik.ime + ' ' + korisnik.prezime) | initials }}</span>
+                <div>
+                  <p class="user__tip">{{ korisnik.tip | statusLabel }}</p>
+                  <p class="user__registered">
+                    Registrovan {{ korisnik.datumRegistracije | date: 'dd.MM.yyyy' }}
+                  </p>
+                </div>
+              </div>
+
+              <button cardFooter type="button" class="btn btn--ghost btn--sm" (click)="setIzabrani(korisnik)">
+                {{ jeIzabran(korisnik) ? 'Sakrij detalje' : 'Prikaži detalje' }}
+              </button>
+
+              @if (jeIzabran(korisnik)) {
+                <app-zippy [naslov]="'Adrese korisnika #' + (korisnik.id ?? i)">
+                  @if (korisnik.adrese?.length) {
+                    <ul>
+                      @for (adresa of korisnik.adrese; track adresa.id) {
+                        <li>{{ adresa.ulica }} {{ adresa.broj }}, {{ adresa.grad }}</li>
+                      }
+                    </ul>
+                  } @else {
+                    <p>Nema sačuvanih adresa.</p>
+                  }
+                </app-zippy>
+              }
+            </app-card>
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

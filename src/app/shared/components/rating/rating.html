@@ -1,0 +1,16 @@
+<div class="rating" [class.rating--editable]="ocenjivo()">
+  <span class="rating__stars" role="img" [attr.aria-label]="'Ocena: ' + prikaz() + ' od 5'">
+    @for (z of zvezdice; track z) {
+      <button
+        type="button"
+        class="rating__star"
+        [disabled]="!ocenjivo()"
+        [attr.aria-pressed]="z <= ocena()"
+        (click)="set(z)"
+      >
+        {{ z <= ocena() ? '★' : '☆' }}
+      </button>
+    }
+  </span>
+  <span class="rating__value">{{ prikaz() }}</span>
+</div>

@@ -1,0 +1,69 @@
+.dish {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.dish:last-child {
+  border-bottom: 0;
+}
+
+.dish__info {
+  min-width: 0;
+}
+
+.dish__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.dish__name {
+  margin: 0;
+  font-size: 0.98rem;
+  color: #0f172a;
+  letter-spacing: 0.01em;
+}
+
+.dish__category {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  background: #f1f5f9;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
+.dish__description {
+  margin: 0.3rem 0 0.4rem;
+  font-size: 0.86rem;
+  color: #64748b;
+}
+
+.dish__price {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.dish__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.dish__in-cart {
+  font-size: 0.75rem;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.dish--unavailable {
+  opacity: 0.65;
+}

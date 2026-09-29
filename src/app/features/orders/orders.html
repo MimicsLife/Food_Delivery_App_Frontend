@@ -1,0 +1,46 @@
+<section class="orders">
+  <header class="orders__header">
+    <h1>Moje porudžbine</h1>
+  </header>
+
+  @if (vm$ | async; as vm) {
+    @if (vm.ucitava) {
+      <app-loading tekst="Ucitavanje porudzbin..." />
+    } @else if (vm.greska) {
+      <p class="notice notice--error">{{ vm.greska }}</p>
+    } @else if (vm.porudzbine.length === 0) {
+      <p class="notice">
+        Nema porudzbin za ovog kupca. <a routerLink="/restorani">Pocnite narudzbu</a>.
+      </p>
+    } @else {
+      <ul class="orders__list">
+        @for (porudzbina of vm.porudzbine; track porudzbina.id) {
+          <li>
+            <app-card
+              [naslov]="restoranNaziv(porudzbina.restoranId)"
+              [podnaslov]="'Porudžbina #' + porudzbina.id"
+            >
+              <div class="order__row">
+                <span class="badge" [ngClass]="statusKlasa(porudzbina.status)">
+                  {{ porudzbina.status | statusLabel }}
+                </span>
+                <span class="order__date">{{ porudzbina.datum | date: 'dd.MM.yyyy HH:mm' }}</span>
+                <span class="order__total">
+                  {{ porudzbina.ukupnaCena | currency: 'RSD' : 'symbol' : '1.0-0' }}
+                </span>
+              </div>
+
+              <p class="order__items">
+                {{ brojStavki(porudzbina) }} stavki
+              </p>
+
+              <a cardFooter [routerLink]="['/porudzbine', porudzbina.id]" class="order__link">
+                Detalji porudžbine
+              </a>
+            </app-card>
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

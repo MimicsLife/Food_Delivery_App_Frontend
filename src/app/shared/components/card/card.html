@@ -1,0 +1,16 @@
+<article class="card" [class.card--selected]="selektovan()" [class.card--flat]="bezOkvira()">
+  @if (naslov()) {
+    <header class="card__header">
+      <h3 class="card__title">{{ naslov() }}</h3>
+      @if (podnaslov()) {
+        <p class="card__subtitle">{{ podnaslov() }}</p>
+      }
+    </header>
+  }
+  <div class="card__body">
+    <ng-content />
+  </div>
+  <footer class="card__footer">
+    <ng-content select="[cardFooter]" />
+  </footer>
+</article>

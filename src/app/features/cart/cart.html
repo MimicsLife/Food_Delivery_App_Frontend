@@ -1,0 +1,65 @@
+<section class="cart">
+  <h1>Korpa</h1>
+
+  @if (prazna()) {
+    <p class="notice">
+      Korpa je prazna. <a routerLink="/restorani">Pogledajte restorane</a>.
+    </p>
+  } @else {
+    <p class="cart__restaurant">Restoran: <strong>{{ restoranNaziv() }}</strong></p>
+
+    <form>
+      <div class="cart__head" aria-hidden="true">
+        <span>Jelo</span>
+        <span>Jedinična cena</span>
+        <span>Količina</span>
+        <span>Ukupno</span>
+        <span></span>
+      </div>
+
+      <!-- @for sa $index - stavke FormArray kontrole po rednom iz stavke korpe -->
+      @for (item of items(); track item.jeloId; let i = $index) {
+        <div class="cart__row">
+          <div class="cart__name">
+            <strong>{{ item.naziv }}</strong>
+            @if (item.opis) {
+              <small>{{ item.opis }}</small>
+            }
+          </div>
+
+          <span class="cart__price">{{ item.cena | currency: 'RSD' : 'symbol' : '1.0-0' }}</span>
+
+          <div class="cart__qty">
+            <button type="button" (click)="decrement(item.jeloId)" aria-label="Smanji">&minus;</button>
+            <!-- [formControl] vezuje kontroler iz FormArray-a za polje -->
+            <input
+              type="number"
+              min="1"
+              max="20"
+              [formControl]="stavke.at(i)"
+              (change)="update(item.jeloId, stavke.at(i).value)"
+              [attr.aria-label]="'Količina za ' + item.naziv"
+            />
+            <button type="button" (click)="increment(item.jeloId)" aria-label="Povecaj">+</button>
+          </div>
+
+          <span class="cart__subtotal">
+            {{ subtotal(item) | currency: 'RSD' : 'symbol' : '1.0-0' }}
+          </span>
+
+          <button type="button" class="cart__remove" (click)="remove(item.jeloId)">
+            Ukloni
+          </button>
+        </div>
+      }
+    </form>
+
+    <div class="cart__summary">
+      <p>
+        Ukupno: <strong>{{ ukupno() | currency: 'RSD' : 'symbol' : '1.0-0' }}</strong>
+      </p>
+      <a class="btn btn--primary" routerLink="/porudzba">Nastavi na porudzbinu</a>
+      <button type="button" class="btn btn--ghost" (click)="clear()">Isprazni korpu</button>
+    </div>
+  }
+</section>

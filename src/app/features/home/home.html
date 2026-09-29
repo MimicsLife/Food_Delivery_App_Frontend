@@ -1,0 +1,51 @@
+<section class="home">
+  <div class="home__hero">
+    <h1>Dostava hrane na vaša vrata</h1>
+    <p>
+      Naručite obrok iz omiljenog restorana u par klikova. Hrana stiže sveža i vrela,
+      a vi se u međuvremenu možete posvetiti bilo čemu drugom.
+    </p>
+    <div class="home__actions">
+      <a class="btn btn--primary" routerLink="/restorani">Pregledaj restorane</a>
+      <a class="btn btn--ghost" routerLink="/korpa">Korpa ({{ uKorpi() }})</a>
+    </div>
+    @if (uKorpi() > 0) {
+      <p class="home__cart">
+        U korpi imate {{ uKorpi() }} stavki.
+      </p>
+    }
+  </div>
+
+  <div class="home__grid">
+    <app-card naslov="Restorani" podnaslov="Naše preporuke">
+      <p>Od ranih doručaka do večere - pronađite restoran koji odgovara vašem ukusu.</p>
+    </app-card>
+
+    <app-card naslov="Meni" podnaslov="Jela sa opisom i cenom">
+      <p>
+        Pregledajte sve što nude izdvojeni restorani i lako dodajte željena jela u
+        korpu.
+      </p>
+    </app-card>
+
+    <app-card naslov="Porudžbine" podnaslov="Pratite na svakom koraku">
+      <p>
+        U svakom trenutku vidite gde se vaša porudžbina nalazi - od prijema narudžbe do
+        dolaska na vaša vrata.
+      </p>
+    </app-card>
+
+    <app-card naslov="Korisnici" podnaslov="Podaci za dostavu">
+      <p>Sačuvajte adrese dostave i upravljajte nalogom sa jednog mesta.</p>
+    </app-card>
+  </div>
+
+  <app-zippy naslov="Kako funkcioniše dostava?">
+    <ul>
+      <li>Prijavite se i izaberite restoran koji vam se sviđa.</li>
+      <li>Pregledajte meni i stavite željena jela u korpu.</li>
+      <li>Unesite adresu dostave i potvrdite narudžbinu.</li>
+      <li>Pratite status narudžbe dok dostavljač ne dođe do vas.</li>
+    </ul>
+  </app-zippy>
+</section>

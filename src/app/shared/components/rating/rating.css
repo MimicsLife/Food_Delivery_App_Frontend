@@ -1,0 +1,35 @@
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rating__stars {
+  display: inline-flex;
+  gap: 0.1rem;
+}
+
+.rating__star {
+  background: none;
+  border: 0;
+  padding: 0 0.05rem;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: #cbd5e1;
+  cursor: default;
+}
+
+.rating--editable .rating__star {
+  cursor: pointer;
+  color: #fbbf24;
+}
+
+.rating--editable .rating__star:hover:not(:disabled) {
+  transform: scale(1.15);
+}
+
+.rating__value {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,48 @@
+.zippy {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.zippy__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  background: #f8fafc;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  color: #0f172a;
+}
+
+.zippy__header:hover {
+  background: #f1f5f9;
+}
+
+.zippy__chevron {
+  display: inline-block;
+  transition: transform 0.15s ease;
+  color: #f97316;
+}
+
+.zippy__chevron--open {
+  transform: rotate(90deg);
+}
+
+.zippy__title {
+  font-weight: 600;
+}
+
+.zippy__body {
+  padding: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.zippy--closed {
+  border-color: #cbd5e1;
+}

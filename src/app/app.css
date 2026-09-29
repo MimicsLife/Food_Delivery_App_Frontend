@@ -1,0 +1,85 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell__header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.7rem 1.25rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.shell__brand {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #f97316;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.shell__nav {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.shell__nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.4rem;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.shell__nav a:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* routerLinkActive dodaje klasu "is-active" aktivnom linku */
+.shell__nav a.is-active {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.shell__badge {
+  background: #f97316;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.shell__account {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shell__user {
+  font-size: 0.88rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.shell__main {
+  flex: 1;
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}

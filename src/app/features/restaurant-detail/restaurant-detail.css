@@ -1,0 +1,56 @@
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detail__back {
+  align-self: flex-start;
+  color: #ea580c;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.detail__back:hover {
+  text-decoration: underline;
+}
+
+.detail__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.detail__counter {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.detail__phone {
+  margin: 0 0 0.75rem;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.detail h2 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #475569;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.detail__menu {
+  border-top: 1px solid #f1f5f9;
+}

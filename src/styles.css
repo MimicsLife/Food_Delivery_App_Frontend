@@ -1,0 +1,184 @@
+:root {
+  --boja-primarna: #f97316;
+  --boja-primarna-tamna: #c2410c;
+  --boja-tekst: #0f172a;
+  --boja-mutirana: #64748b;
+  --boja-granica: #e2e8f0;
+  --boja-pozadina: #f8fafc;
+  --boja-uspeh: #15803d;
+  --boja-greska: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--boja-pozadina);
+  color: var(--boja-tekst);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+}
+
+a {
+  color: var(--boja-primarna-tamna);
+}
+
+code {
+  background: #f1f5f9;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  font-size: 0.85em;
+}
+
+/* ---------- dugmad ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.45rem;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn--sm {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.82rem;
+}
+
+.btn--primary {
+  background: var(--boja-primarna);
+  color: #ffffff;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--boja-primarna-tamna);
+}
+
+.btn--ghost {
+  background: #ffffff;
+  color: var(--boja-tekst);
+  border-color: var(--boja-granica);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---------- obrazci ---------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.field__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.field__control {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--boja-granica);
+  border-radius: 0.45rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #ffffff;
+  color: inherit;
+  width: 100%;
+}
+
+.field__control:focus {
+  outline: 2px solid #fdba74;
+  outline-offset: 1px;
+  border-color: var(--boja-primarna);
+}
+
+.field__error {
+  color: var(--boja-greska);
+  font-size: 0.78rem;
+}
+
+/* ---------- poruke ---------- */
+
+.notice {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.45rem;
+  font-size: 0.88rem;
+  background: #f1f5f9;
+  color: #334155;
+  margin: 0.5rem 0;
+}
+
+.notice--ok {
+  background: #dcfce7;
+  color: var(--boja-uspeh);
+}
+
+.notice--error {
+  background: #fee2e2;
+  color: var(--boja-greska);
+}
+
+/* ---------- badge ---------- */
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.status--kreirana {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+.status--upripremi {
+  background: #fef3c7;
+  color: #92400e;
+}
+.status--u_dostavi {
+  background: #cffafe;
+  color: #155e75;
+}
+.status--dostavljena {
+  background: #dcfce7;
+  color: #166534;
+}
+.status--otkazana {
+  background: #fee2e2;
+  color: #991b1b;
+}

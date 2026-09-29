@@ -1,0 +1,28 @@
+<div class="dish" [class.dish--unavailable]="!jelo.dostupno">
+  <div class="dish__info">
+    <div class="dish__head">
+      <h4 class="dish__name">{{ jelo.naziv | uppercase }}</h4>
+      @if (jelo.kategorija; as kategorija) {
+        <span class="dish__category">{{ kategorija.naziv }}</span>
+      }
+    </div>
+
+    @if (jelo.opis) {
+      <p class="dish__description">{{ jelo.opis }}</p>
+    }
+
+    <span class="dish__price">{{ jelo.cena | currency: 'RSD' : 'symbol' : '1.0-0' }}</span>
+  </div>
+
+  <div class="dish__actions">
+    @if (!jelo.dostupno) {
+      <span class="badge badge--muted">Nema na stanju</span>
+    } @else {
+      <button type="button" class="btn btn--primary" (click)="add()">Dodaj</button>
+    }
+
+    @if (uKorpi > 0) {
+      <span class="dish__in-cart">u korpi: {{ uKorpi }}</span>
+    }
+  </div>
+</div>

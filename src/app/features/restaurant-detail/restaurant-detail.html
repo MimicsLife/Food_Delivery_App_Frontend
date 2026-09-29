@@ -1,0 +1,71 @@
+<section class="detail">
+  <a routerLink="/restorani" class="detail__back">&larr; Nazad na restorane</a>
+
+  @if (vm$ | async; as vm) {
+    @if (vm.ucitava) {
+      <app-loading tekst="Ucitavanje restorana..." />
+    } @else if (vm.greska) {
+      <p class="notice notice--error">{{ vm.greska }}</p>
+      @if (!prijavljen()) {
+        <p class="notice">
+          <a routerLink="/login">Prijavite se</a> ili
+          <a routerLink="/registracija">napravite nalog</a> da biste naručili.
+        </p>
+      }
+    } @else if (vm.restoran; as restoran) {
+      <app-card [naslov]="restoran.naziv" [podnaslov]="restoran.adresa ?? ''">
+        <div class="detail__meta">
+          <app-rating [ocena]="4" [ocenjivo]="true" />
+
+          <!-- @if / @else-if / @else - uslovni prikaz sadrzaja -->
+          @if (restoran.otvoren) {
+            <span class="badge badge--ok">Otvoren</span>
+          } @else {
+            <span class="badge badge--muted">Zatvoren</span>
+          }
+
+          <span class="detail__counter">Dodato u korpu: {{ brojDodatih() }}</span>
+        </div>
+
+        @if (restoran.telefon) {
+          <p class="detail__phone">Telefon: {{ restoran.telefon }}</p>
+        }
+
+        @if (poslednjeDodato(); as poruka) {
+          <p class="notice notice--ok">{{ poruka }}</p>
+        }
+
+        <h2>Meni ({{ vm.meni.length }})</h2>
+
+        <label class="toggle">
+          <input
+            type="checkbox"
+            [checked]="samoDostupna()"
+            (change)="samoDostupna.set(!samoDostupna())"
+          />
+          Prikazi samo dostupna jela ({{ brojDostupnih(vm.meni) }}/{{ vm.meni.length }})
+        </label>
+
+        @if (vidljivaJela(vm.meni).length === 0) {
+          <p class="notice">Nema jela za prikaz.</p>
+        } @else {
+          <div class="detail__menu">
+            @for (jelo of vidljivaJela(vm.meni); track jelo.id) {
+              <app-dish-row [jelo]="jelo" (dodato)="onDodato($event, restoran)" />
+            } @empty {
+              <p class="notice">Lista je prazna.</p>
+            }
+          </div>
+        }
+      </app-card>
+
+      <app-zippy naslov="Kako radi dostava?" (panelClosed)="poslednjeDodato.set(null)">
+        <ul>
+          <li>Naružbina se odnosi na jedan restoran, pa korpa uvek pripada jednom mestu.</li>
+          <li>Ukupna cena se računa automatski i prikazuje se pre potvrde narudžbine.</li>
+          <li>Status narudžbine pratite od prijema do dostave.</li>
+        </ul>
+      </app-zippy>
+    }
+  }
+</section>

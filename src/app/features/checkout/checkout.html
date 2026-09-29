@@ -1,0 +1,125 @@
+<section class="checkout">
+  <h1>Porudzbina</h1>
+
+  @if (prazna()) {
+    <p class="notice">
+      Korpa je prazna. <a routerLink="/restorani">Dodajte nesto iz menija</a>.
+    </p>
+  } @else {
+    <form [formGroup]="forma" (ngSubmit)="onSubmit()" novalidate>
+      <fieldset formGroupName="kupac">
+        <legend>Podaci o kupcu</legend>
+
+        <div class="field">
+          <label class="field__label" for="ime">Ime i prezime</label>
+          <input id="ime" class="field__control" formControlName="ime" />
+          @if (kupac.get('ime'); as c) {
+            @if (c.invalid && (c.dirty || c.touched)) {
+              <p class="field__error">
+                @if (c.errors?.['required']) {
+                  Ime je obavezno.
+                } @else if (c.errors?.['minlength']) {
+                  Ime mora imati bar 2 karaktera.
+                }
+              </p>
+            }
+          }
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email">Email</label>
+          <!-- appForbiddenValue je korisnicki validator: odbija "admin" -->
+          <input
+            id="email"
+            class="field__control"
+            formControlName="email"
+            appForbiddenValue="admin"
+            type="email"
+          />
+          @if (kupac.get('email'); as c) {
+            @if (c.invalid && (c.dirty || c.touched)) {
+              <p class="field__error">
+                @if (c.errors?.['required']) {
+                  Email je obavezan.
+                } @else if (c.errors?.['email']) {
+                  Email nije ispravnog oblika.
+                } @else if (c.errors?.['forbiddenValue']) {
+                  Ovaj email nije dozvoljen.
+                }
+              </p>
+            }
+          }
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="telefon">Telefon</label>
+          <input id="telefon" class="field__control" formControlName="telefon" />
+          @if (kupac.get('telefon'); as c) {
+            @if (c.invalid && (c.dirty || c.touched)) {
+              <p class="field__error">Telefon može imati samo cifre, razmake, + i -.</p>
+            }
+          }
+        </div>
+      </fieldset>
+
+      <fieldset formGroupName="adresa">
+        <legend>Adresa dostave</legend>
+
+        <div class="field">
+          <label class="field__label" for="ulica">Ulica</label>
+          <input id="ulica" class="field__control" formControlName="ulica" />
+          @if (adresa.get('ulica'); as c) {
+            @if (c.invalid && (c.dirty || c.touched)) {
+              <p class="field__error">Ulica je obavezna (min. 3 znaka).</p>
+            }
+          }
+        </div>
+
+        <div class="field field--split">
+          <div>
+            <label class="field__label" for="broj">Broj</label>
+            <input id="broj" class="field__control" formControlName="broj" />
+            @if (adresa.get('broj'); as c) {
+              @if (c.invalid && (c.dirty || c.touched)) {
+                <p class="field__error">Broj je obavezan.</p>
+              }
+            }
+          </div>
+          <div>
+            <label class="field__label" for="grad">Grad</label>
+            <input id="grad" class="field__control" formControlName="grad" />
+            @if (adresa.get('grad'); as c) {
+              @if (c.invalid && (c.dirty || c.touched)) {
+                <p class="field__error">Grad je obavezan.</p>
+              }
+            }
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="napomena">Napomena za dostavljača</label>
+          <textarea id="napomena" class="field__control" formControlName="napomena" rows="2"></textarea>
+        </div>
+      </fieldset>
+
+      <div class="checkout__summary">
+        <p>
+          Ukupno ({{ items().length }} stavki):
+          <strong>{{ ukupno() | currency: 'RSD' : 'symbol' : '1.0-0' }}</strong>
+        </p>
+        <p class="checkout__user">Prijava kao: {{ prijavljeniKorisnik() }}</p>
+      </div>
+
+      @if (greska(); as poruka) {
+        <p class="notice notice--error">{{ poruka }}</p>
+      }
+      @if (potvrda(); as poruka) {
+        <p class="notice notice--ok">{{ poruka }}</p>
+      }
+
+      <button type="submit" class="btn btn--primary" [disabled]="slanje()">
+        {{ slanje() ? 'Slanje...' : 'Potvrdi porudžbinu' }}
+      </button>
+    </form>
+  }
+</section>

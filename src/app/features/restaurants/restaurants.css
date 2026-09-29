@@ -1,0 +1,92 @@
+.restaurants {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.restaurants__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.restaurants__header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #0f172a;
+}
+
+.restaurants__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.restoran__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.restoran__phone {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+}
+
+.restoran__bar {
+  height: 4px;
+  min-height: 0;
+  background: #fbbf24;
+  border-radius: 999px;
+  margin: 0.5rem 0;
+  transition: height 0.2s ease;
+}
+
+.restoran__state {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.restoran__state--open {
+  color: #16a34a;
+}
+
+.restoran__state--closed {
+  color: #dc2626;
+}
+
+.restoran__index {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* C cela kartica je link ka meniju, pa se ponasa kao jedno dugme. */
+.restoran__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.restoran__link:hover,
+.restoran__link:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(15 23 42 / 12%);
+}
+
+.restoran__cta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2563eb;
+}

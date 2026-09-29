@@ -1,0 +1,34 @@
+.register {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.register h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #0f172a;
+}
+
+.register__lead {
+  margin: 0 0 1rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.register__login {
+  margin: 1rem 0 0;
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+.linkish {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #ea580c;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+}

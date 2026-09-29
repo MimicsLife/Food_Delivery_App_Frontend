@@ -1,0 +1,49 @@
+<section class="login">
+  <h1>Prijava</h1>
+
+  <p class="login__note">Ulogujte se nalogom kojim ste se registrovali.</p>
+
+  <form [formGroup]="forma" (ngSubmit)="onSubmit()" novalidate>
+    <div class="field">
+      <label class="field__label" for="email">Email adresa</label>
+      <input
+        id="email"
+        type="email"
+        autocomplete="username"
+        class="field__control"
+        formControlName="email"
+      />
+      @if (forma.controls.email.invalid && forma.controls.email.touched) {
+        <p class="field__error">Unesite ispravnu email adresu.</p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="lozinka">Lozinka</label>
+      <input
+        id="lozinka"
+        type="password"
+        autocomplete="current-password"
+        class="field__control"
+        formControlName="lozinka"
+      />
+      @if (forma.controls.lozinka.invalid && forma.controls.lozinka.touched) {
+        <p class="field__error">Lozinka je obavezna.</p>
+      }
+    </div>
+
+    @if (greska(); as poruka) {
+      <p class="notice notice--error">{{ poruka }}</p>
+    }
+
+    <div class="login__actions">
+      <button type="submit" class="btn btn--primary" [disabled]="proveravanje()">
+        {{ proveravanje() ? 'Provera...' : 'Prijavi se' }}
+      </button>
+    </div>
+
+    <p class="login__register">
+      Nemate nalog? <a routerLink="/registracija">Registrujte se</a>.
+    </p>
+  </form>
+</section>

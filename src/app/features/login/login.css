@@ -1,0 +1,35 @@
+.login {
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.login h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #0f172a;
+}
+
+.login__note {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.85rem;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 0.5rem;
+  color: #9a3412;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.login__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.login__register {
+  margin: 1rem 0 0;
+  font-size: 0.88rem;
+  color: #64748b;
+}

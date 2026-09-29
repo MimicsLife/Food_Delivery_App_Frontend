@@ -1,0 +1,121 @@
+<section class="register">
+  <h1>Registracija</h1>
+  <p class="register__lead">
+    Napravite nalog za petnaest sekundi i naručite prvi obrok.
+  </p>
+
+  <!--
+    #forma="ngForm" daje referencu na NgForm direktivu, preko koje se
+    pristupa stanju svih kontrola i sprecava podnošenje nevalidne forme.
+  -->
+  <form #forma="ngForm" (ngSubmit)="onSubmit(forma)" novalidate>
+    <div class="field">
+      <label class="field__label" for="ime">Ime</label>
+      <!-- #ime="ngModel" daje referencu na sam NgModel kontroler (za greske) -->
+      <input
+        id="ime"
+        name="ime"
+        class="field__control"
+        required
+        minlength="2"
+        [(ngModel)]="model.ime"
+        #ime="ngModel"
+      />
+      @if (ime.invalid && (ime.dirty || ime.touched)) {
+        <p class="field__error">
+          @if (ime.errors?.['required']) {
+            Ime je obavezno.
+          } @else if (ime.errors?.['minlength']) {
+            Ime mora imati bar 2 karaktera.
+          }
+        </p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="prezime">Prezime</label>
+      <input
+        id="prezime"
+        name="prezime"
+        class="field__control"
+        required
+        [(ngModel)]="model.prezime"
+        #prezime="ngModel"
+      />
+      @if (prezime.invalid && (prezime.dirty || prezime.touched)) {
+        <p class="field__error">Prezime je obavezno.</p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        class="field__control"
+        required
+        email
+        appForbiddenValue="test"
+        [(ngModel)]="model.email"
+        #email="ngModel"
+      />
+      @if (email.invalid && (email.dirty || email.touched)) {
+        <p class="field__error">
+          @if (email.errors?.['required']) {
+            Email je obavezan.
+          } @else if (email.errors?.['email']) {
+            Email nije ispravnog oblika.
+          } @else if (email.errors?.['forbiddenValue']) {
+            Ovaj email nije dozvoljen.
+          }
+        </p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="sifra">Lozinka</label>
+      <input
+        id="sifra"
+        name="sifra"
+        type="password"
+        class="field__control"
+        required
+        minlength="6"
+        [(ngModel)]="model.sifra"
+        #sifra="ngModel"
+      />
+      @if (sifra.invalid && (sifra.dirty || sifra.touched)) {
+        <p class="field__error">Lozinka mora imati bar 6 karaktera.</p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="tip">Tip korisnika</label>
+      <select id="tip" name="tip" class="field__control" [(ngModel)]="model.tip">
+        @for (tip of tipovi; track tip) {
+          <option [value]="tip">{{ tip }}</option>
+        }
+      </select>
+    </div>
+
+    @if (greska(); as poruka) {
+      <p class="notice notice--error">{{ poruka }}</p>
+    }
+    @if (poruka(); as tekst) {
+      <p class="notice notice--ok">
+        {{ tekst }}
+        <button type="button" class="linkish" (click)="nastavi()">Nastavi</button>
+      </p>
+    }
+
+    <!-- [disabled] na osnovu validnosti cele forme, preko reference na NgForm -->
+    <button type="submit" class="btn btn--primary" [disabled]="forma.invalid || slanje()">
+      {{ slanje() ? 'Slanje...' : 'Registruj se' }}
+    </button>
+
+    <p class="register__login">
+      Vec imate nalog? <a routerLink="/login">Prijavite se</a>.
+    </p>
+  </form>
+</section>
